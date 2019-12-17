@@ -8,7 +8,6 @@
         </div>
         <div>
             <button type="button">Connexion</button>
-            <router-link to="/Inscription">S'inscrire</router-link>
         </div>
     </div>
 </template>
