@@ -6,7 +6,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">🧑</div>
                 </div>
-                <input type="email" class="form-control" name="name" id="name" placeholder="Nom + prénom">
+                <input type="text" class="form-control" name="name" id="name" v-model="fullname" placeholder="Nom + prénom">
             </div>
         </div>
 
@@ -16,7 +16,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">📧</div>
                 </div>
-                <input type="email" class="form-control" name="mail" id="mail" placeholder="Entrer votre adresse mail">
+                <input type="email" class="form-control" name="mail" id="mail" v-model="email" placeholder="Entrer votre adresse mail">
             </div>
         </div>
 
@@ -28,7 +28,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">🔑</div>
                         </div>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Saisir le mot de passe">
+                        <input type="password" class="form-control" name="password" id="password" v-model="password" placeholder="Saisir le mot de passe">
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">🔑</div>
                         </div>
-                        <input type="password" class="form-control" name="checkPassword" id="checkPassword" placeholder="Ressaisir le mot de passe">
+                        <input type="password" class="form-control" name="checkPassword" id="checkPassword" v-model="checkPassword" placeholder="Ressaisir le mot de passe">
                     </div>
                 </div>
             </div>
@@ -50,8 +50,16 @@
                 <button type="button" class="btn btn-secondary btn-block" @click="this.$parent.changeForm">Connexion</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary btn-block">Inscription</button>
+                <button type="button" class="btn btn-primary btn-block" @click="inscription">Inscription</button>
             </div>
+        </div>
+
+        <div class="col alert alert-danger" v-show="error" role="alert">
+            <p>{{ error }}</p>
+        </div>
+
+        <div class="col alert alert-success" v-show="success" role="alert">
+            <p>{{ success }}</p>
         </div>
 
     </form>
@@ -60,6 +68,30 @@
 <script>
     export default {
         name: "Inscription",
+        data: function() {
+            return {
+                fullname:null,
+                email:null,
+                password:null,
+                checkPassword:null,
+                error:null,
+                success:null
+            }
+        },
+        methods:{
+            inscription(){
+                this.$http.post('members', {
+                    fullname:this.fullname,
+                    email:this.email,
+                    password:this.password,
+                    checkPassword:this.checkPassword
+                }).then(() => {
+                    this.success = "Inscription réussie !"
+                }).catch((e) => {
+                        this.error = e.response.data.error[0][0]
+                    })
+            }
+        }
     }
 </script>
 
