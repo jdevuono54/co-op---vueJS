@@ -55,11 +55,11 @@
         </div>
 
         <div class="col alert alert-danger" v-show="error" role="alert">
-            <p>{{ error }}</p>
+            {{ error }}
         </div>
 
         <div class="col alert alert-success" v-show="success" role="alert">
-            <p>{{ success }}</p>
+            {{ success }}
         </div>
 
     </form>
