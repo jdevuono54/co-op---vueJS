@@ -7,11 +7,11 @@
 
 <script>
 // @ is an alias to /src
-import Login from "../components/Login";
-import Inscription from "../components/Inscription";
+import Login from "../components/auth/Login";
+import Inscription from "../components/auth/Inscription";
 
 export default {
-  name:"home",
+  name:"auth",
   components:{
     Login,
     Inscription
