@@ -22,6 +22,12 @@
             </div>
         </div>
 
+        <div class="row error-small" v-show="error.mailInvalid">
+            <div class="col-md-12">
+                <small class="text-danger">{{ error.mailInvalid }}</small>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12 col-lg-6">
                 <div class="form-group">
@@ -42,12 +48,20 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">🔑</div>
                         </div>
-                        <input class="form-control" :class="{'is-invalid':!checkPasswordSame && checkPassword}" id="checkPassword" name="checkPassword"
+                        <input class="form-control" :class="{'is-invalid':!checkPasswordSame}" id="checkPassword" name="checkPassword"
                                placeholder="Ressaisir le mot de passe" type="password" v-model="checkPassword">
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row error-small" v-show="error.passwordNotSame">
+            <div class="col-md-12">
+                <small class="text-danger">{{ error.passwordNotSame }}</small>
+            </div>
+        </div>
+
+
 
         <div class="row">
             <div class="col">
@@ -59,8 +73,8 @@
             </div>
         </div>
 
-        <div class="col alert alert-danger" role="alert" v-show="error">
-            {{ error }}
+        <div class="col alert alert-danger" role="alert" v-show="error.failInscription">
+            {{ error.failInscription }}
         </div>
 
         <div class="col alert alert-success" role="alert" v-show="success">
@@ -79,31 +93,47 @@
                 email: null,
                 password: null,
                 checkPassword: null,
-                error: null,
+                error: {
+                    "passwordNotSame":null,
+                    "failInscription":null,
+                    "mailInvalid":null
+                },
                 success: null
             }
         },
         computed:{
             emailIsValid () {
                 if(!this.email){
+                    this.setErrorMessage("mailInvalid",null);
                     return true
                 }else{
-                    return /\S+@\S+\.\S+/.test(this.email)
+                    if(/\S+@\S+\.\S+/.test(this.email)){
+                        this.setErrorMessage("mailInvalid",null);
+                        return true;
+                    }else{
+                        this.setErrorMessage("mailInvalid","Format de l'adresse mail incorrect");
+                        return false;
+                    }
                 }
             },
             completedForm(){
                 return !(!this.fullname || !this.email || !this.password || !this.checkPassword);
             },
             checkPasswordSame(){
-                if(this.checkPassword === this.password){
+                if(this.checkPassword === this.password || !this.checkPassword){
+                    this.setErrorMessage("passwordNotSame",null);
                     return true;
                 }
                 else{
+                    this.setErrorMessage("passwordNotSame","Les mots de passe doivent être identique");
                     return false;
                 }
             }
         },
         methods: {
+            setErrorMessage(errorCol,msg){
+                this.error[errorCol] = msg;
+            },
             inscription() {
                 this.$http.post('members', {
                     fullname: this.fullname,
@@ -111,9 +141,10 @@
                     password: this.password,
                     checkPassword: this.checkPassword
                 }).then(() => {
+                    this.error = {"passwordNotSame":null, "failInscription":null, "mailInvalid":null}
                     this.success = "Inscription réussie !"
                 }).catch((e) => {
-                    this.error = e.response.data.error[0][0]
+                    this.setErrorMessage("failInscription",e.response.data.error[0][0]);
                 })
             }
         }

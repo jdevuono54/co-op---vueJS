@@ -6,7 +6,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">📧</div>
                     </div>
-                    <input type="email" class="form-control" name="mail" id="mail" v-model="email" placeholder="Entrer votre adresse mail">
+                    <input type="text" class="form-control" name="mail" id="mail" v-model="email" placeholder="Entrer votre adresse mail">
                 </div>
             </div>
 

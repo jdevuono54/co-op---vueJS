@@ -28,4 +28,8 @@ export default {
   .alert{
     margin-top: 1em;
   }
+  .error-small{
+    text-align: center;
+    margin-bottom: 1em;
+  }
 </style>
