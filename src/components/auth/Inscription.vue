@@ -17,7 +17,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">📧</div>
                 </div>
-                <input class="form-control" id="mail" name="mail" placeholder="Entrer votre adresse mail" type="email"
+                <input class="form-control" :class="{'is-invalid':!emailIsValid}" id="mail" name="mail" placeholder="Entrer votre adresse mail" type="text"
                        v-model="email">
             </div>
         </div>
@@ -42,7 +42,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">🔑</div>
                         </div>
-                        <input class="form-control" id="checkPassword" name="checkPassword"
+                        <input class="form-control" :class="{'is-invalid':!checkPasswordSame && checkPassword}" id="checkPassword" name="checkPassword"
                                placeholder="Ressaisir le mot de passe" type="password" v-model="checkPassword">
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                 </button>
             </div>
             <div class="col">
-                <button @click="inscription" class="btn btn-primary btn-block" type="button" :disabled="!fullname  || !email  || !password || !checkPassword">Inscription</button>
+                <button @click="inscription" class="btn btn-primary btn-block" type="button" :disabled="!completedForm || !checkPasswordSame || !emailIsValid">Inscription</button>
             </div>
         </div>
 
@@ -81,6 +81,26 @@
                 checkPassword: null,
                 error: null,
                 success: null
+            }
+        },
+        computed:{
+            emailIsValid () {
+                if(!this.email){
+                    return true
+                }else{
+                    return /\S+@\S+\.\S+/.test(this.email)
+                }
+            },
+            completedForm(){
+                return !(!this.fullname || !this.email || !this.password || !this.checkPassword);
+            },
+            checkPasswordSame(){
+                if(this.checkPassword === this.password){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
         },
         methods: {
