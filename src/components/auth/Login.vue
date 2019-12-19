@@ -50,7 +50,8 @@
                 this.$http.post('members/signin', {
                     email: this.email,
                     password: this.password,
-                }).then(() => {
+                }).then((response) => {
+                    this.$store.commit("saveUserLocalStorage",response.data);
                     this.$router.push("channel")
                 }).catch((e) => {
                     this.error = e.response.data.error[0][0]

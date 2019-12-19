@@ -11,11 +11,15 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   plugins:[vuexLocal.plugin],
   state: {
-    formInscription: false
+    formInscription: false,
+    user: null
   },
   mutations: {
     changeFormInscriConnex(state) {
       state.formInscription = !state.formInscription
+    },
+    saveUserLocalStorage(state,user){
+      state.user = JSON.stringify(user).replace("\\/",'');
     }
   },
   actions: {
