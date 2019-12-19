@@ -22,7 +22,7 @@
 
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-primary btn-block" @click="connexion" v-bind:disabled="email === null || password===null">Connexion</button>
+                    <button type="button" class="btn btn-primary btn-block" @click="connexion" :disabled="email === null || password===null">Connexion</button>
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-secondary btn-block" @click="this.$parent.changeForm">S'inscrire</button>
