@@ -23,7 +23,7 @@
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col-md-12 col-lg-6">
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
                     <div class="input-group mb-2">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-md-12 col-lg-6">
                 <div class="form-group">
                     <label for="checkPassword">Vérifier le mot de passe</label>
                     <div class="input-group mb-2">
@@ -55,7 +55,7 @@
                 </button>
             </div>
             <div class="col">
-                <button @click="inscription" class="btn btn-primary btn-block" type="button" :disabled="fullname === null || email === null || password===null || checkPassword === null">Inscription</button>
+                <button @click="inscription" class="btn btn-primary btn-block" type="button" :disabled="!fullname  || !email  || !password || !checkPassword">Inscription</button>
             </div>
         </div>
 
