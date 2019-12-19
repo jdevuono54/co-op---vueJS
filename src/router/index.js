@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Auth from "../views/Auth";
+import Channel from "../views/Channel";
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,11 @@ const routes = [
     name: 'auth',
     component: Auth
   },
+  {
+    path: '/channel',
+    name: 'channel',
+    component: Channel
+  }
 ]
 
 const router = new VueRouter({

@@ -6,7 +6,8 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">🧑</div>
                 </div>
-                <input type="text" class="form-control" name="name" id="name" v-model="fullname" placeholder="Nom + prénom">
+                <input class="form-control" id="name" name="name" placeholder="Nom + prénom" type="text"
+                       v-model="fullname">
             </div>
         </div>
 
@@ -16,7 +17,8 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">📧</div>
                 </div>
-                <input type="email" class="form-control" name="mail" id="mail" v-model="email" placeholder="Entrer votre adresse mail">
+                <input class="form-control" id="mail" name="mail" placeholder="Entrer votre adresse mail" type="email"
+                       v-model="email">
             </div>
         </div>
 
@@ -28,7 +30,8 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">🔑</div>
                         </div>
-                        <input type="password" class="form-control" name="password" id="password" v-model="password" placeholder="Saisir le mot de passe">
+                        <input class="form-control" id="password" name="password" placeholder="Saisir le mot de passe"
+                               type="password" v-model="password">
                     </div>
                 </div>
             </div>
@@ -39,7 +42,8 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">🔑</div>
                         </div>
-                        <input type="password" class="form-control" name="checkPassword" id="checkPassword" v-model="checkPassword" placeholder="Ressaisir le mot de passe">
+                        <input class="form-control" id="checkPassword" name="checkPassword"
+                               placeholder="Ressaisir le mot de passe" type="password" v-model="checkPassword">
                     </div>
                 </div>
             </div>
@@ -47,18 +51,19 @@
 
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-secondary btn-block" @click="this.$parent.changeForm">Connexion</button>
+                <button @click="this.$parent.changeForm" class="btn btn-secondary btn-block" type="button">Connexion
+                </button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary btn-block" @click="inscription">Inscription</button>
+                <button @click="inscription" class="btn btn-primary btn-block" type="button">Inscription</button>
             </div>
         </div>
 
-        <div class="col alert alert-danger" v-show="error" role="alert">
+        <div class="col alert alert-danger" role="alert" v-show="error">
             {{ error }}
         </div>
 
-        <div class="col alert alert-success" v-show="success" role="alert">
+        <div class="col alert alert-success" role="alert" v-show="success">
             {{ success }}
         </div>
 
@@ -68,28 +73,28 @@
 <script>
     export default {
         name: "Inscription",
-        data: function() {
+        data: function () {
             return {
-                fullname:null,
-                email:null,
-                password:null,
-                checkPassword:null,
-                error:null,
-                success:null
+                fullname: null,
+                email: null,
+                password: null,
+                checkPassword: null,
+                error: null,
+                success: null
             }
         },
-        methods:{
-            inscription(){
+        methods: {
+            inscription() {
                 this.$http.post('members', {
-                    fullname:this.fullname,
-                    email:this.email,
-                    password:this.password,
-                    checkPassword:this.checkPassword
+                    fullname: this.fullname,
+                    email: this.email,
+                    password: this.password,
+                    checkPassword: this.checkPassword
                 }).then(() => {
                     this.success = "Inscription réussie !"
                 }).catch((e) => {
-                        this.error = e.response.data.error[0][0]
-                    })
+                    this.error = e.response.data.error[0][0]
+                })
             }
         }
     }

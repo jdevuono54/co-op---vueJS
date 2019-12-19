@@ -6,7 +6,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">📧</div>
                     </div>
-                    <input type="email" class="form-control" name="mail" id="mail" placeholder="Entrer votre adresse mail">
+                    <input type="email" class="form-control" name="mail" id="mail" v-model="email" placeholder="Entrer votre adresse mail">
                 </div>
             </div>
 
@@ -16,17 +16,21 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">🔑</div>
                     </div>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Saisir le mot de passe">
+                    <input type="password" class="form-control" name="password" id="password" v-model="password" placeholder="Saisir le mot de passe">
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-primary btn-block">Connexion</button>
+                    <button type="button" class="btn btn-primary btn-block" @click="connexion" v-bind:disabled="email === null || password===null">Connexion</button>
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-secondary btn-block" @click="this.$parent.changeForm">S'inscrire</button>
                 </div>
+            </div>
+
+            <div class="col alert alert-danger" role="alert" v-show="error">
+                {{ error }}
             </div>
         </form>
 </template>
@@ -34,6 +38,25 @@
 <script>
     export default {
         name: "Login",
+        data: function () {
+            return {
+                email: null,
+                password: null,
+                error: null
+            }
+        },
+        methods: {
+            connexion() {
+                this.$http.post('members/signin', {
+                    email: this.email,
+                    password: this.password,
+                }).then(() => {
+                    this.$router.push("channel")
+                }).catch((e) => {
+                    this.error = e.response.data.error[0][0]
+                })
+            }
+        }
     }
 </script>
 
