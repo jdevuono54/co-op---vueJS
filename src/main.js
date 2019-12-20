@@ -8,9 +8,9 @@ import axios from 'axios'
 Vue.config.productionTip = false;
 
 const base = axios.create({
-  baseURL: 'http://coop.api.netlor.fr/api',
+  baseURL: 'https://tools.sopress.net/iut/coop/api',
   headers: {
-    Authorization: 'Token token=19259c3ebc6f44afba5aecbb361b7deb'
+    Authorization: '86260c9cde63e0589418c8d61bcc377a256f922d'
   }
 })
 

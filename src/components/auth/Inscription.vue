@@ -144,7 +144,7 @@
                     this.error = {"passwordNotSame":null, "failInscription":null, "mailInvalid":null}
                     this.success = "Inscription réussie !"
                 }).catch((e) => {
-                    this.setErrorMessage("failInscription",e.response.data.error[0][0]);
+                    this.setErrorMessage("failInscription",e.response.data.message);
                 })
             }
         }

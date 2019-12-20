@@ -54,7 +54,7 @@
                     this.$store.commit("saveUserLocalStorage",response.data);
                     this.$router.push("channel")
                 }).catch((e) => {
-                    this.error = e.response.data.error[0][0]
+                    this.error = e.response.data.message
                 })
             }
         }
