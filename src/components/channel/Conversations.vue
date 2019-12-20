@@ -5,7 +5,7 @@
             <tr>
                 <th scope="col">
                     Conversations
-                    <b-button v-b-modal.modal-1 class="btn btn-info">Nouvelle conversation</b-button>
+                    <b-button v-b-modal.modal-conversation class="btn btn-info">Nouvelle conversation</b-button>
                 </th>
             </tr>
         </thead>
