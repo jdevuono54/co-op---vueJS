@@ -4,7 +4,7 @@
                 <label for="mail">Adresse mail</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">📧</div>
+                        <div class="input-group-text"><font-awesome-icon icon="envelope" class="icon alt"/></div>
                     </div>
                     <input type="text" class="form-control" name="mail" id="mail" v-model="email" placeholder="Entrer votre adresse mail">
                 </div>
@@ -14,7 +14,7 @@
                 <label for="password">Mot de passe</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">🔑</div>
+                        <div class="input-group-text"><font-awesome-icon icon="key" class="icon alt"/></div>
                     </div>
                     <input type="password" class="form-control" name="password" id="password" v-model="password" placeholder="Saisir le mot de passe">
                 </div>

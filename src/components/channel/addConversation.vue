@@ -3,14 +3,14 @@
 
         <div class="input-group mb-2">
             <div class="input-group-prepend">
-                <div class="input-group-text">🔑</div>
+                <div class="input-group-text"><font-awesome-icon icon="heading" class="icon alt"/></div>
             </div>
             <input type="text" class="form-control" v-model="titre" placeholder="Saisir le titre">
         </div>
 
         <div class="input-group mb-2">
             <div class="input-group-prepend">
-                <div class="input-group-text">🔑</div>
+                <div class="input-group-text"><font-awesome-icon icon="bars" class="icon alt"/></div>
             </div>
             <input type="text" class="form-control" v-model="description" placeholder="Saisir la description">
         </div>

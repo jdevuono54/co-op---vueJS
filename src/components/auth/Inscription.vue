@@ -4,7 +4,7 @@
             <label for="name">Nom complet</label>
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                    <div class="input-group-text">🧑</div>
+                    <div class="input-group-text"><font-awesome-icon icon="user" class="icon alt"/></div>
                 </div>
                 <input class="form-control" id="name" name="name" placeholder="Nom + prénom" type="text"
                        v-model="fullname">
@@ -15,7 +15,7 @@
             <label for="mail">Adresse mail</label>
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                    <div class="input-group-text">📧</div>
+                    <div class="input-group-text"><font-awesome-icon icon="envelope" class="icon alt"/></div>
                 </div>
                 <input class="form-control" :class="{'is-invalid':!emailIsValid}" id="mail" name="mail" placeholder="Entrer votre adresse mail" type="text"
                        v-model="email">
@@ -34,7 +34,7 @@
                     <label for="password">Mot de passe</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">🔑</div>
+                            <div class="input-group-text"><font-awesome-icon icon="key" class="icon alt"/></div>
                         </div>
                         <input class="form-control" id="password" name="password" placeholder="Saisir le mot de passe"
                                type="password" v-model="password">
@@ -46,7 +46,7 @@
                     <label for="checkPassword">Vérifier le mot de passe</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">🔑</div>
+                            <div class="input-group-text"><font-awesome-icon icon="key" class="icon alt"/></div>
                         </div>
                         <input class="form-control" :class="{'is-invalid':!checkPasswordSame}" id="checkPassword" name="checkPassword"
                                placeholder="Ressaisir le mot de passe" type="password" v-model="checkPassword">
