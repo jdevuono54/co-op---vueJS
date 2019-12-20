@@ -5,10 +5,7 @@
             <tr>
                 <th scope="col">
                     Conversations
-                    <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Nouvelle conversation</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Launch demo modal
-                    </button>
+                    <b-button v-b-modal.modal-1 class="btn btn-info">Nouvelle conversation</b-button>
                 </th>
             </tr>
         </thead>
@@ -22,31 +19,27 @@
         </tbody>
     </table>
 
-    <div class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        <b-modal id="modal-1" title="BootstrapVue">
+            <p class="my-4">Hello from modal!</p>
+        </b-modal>
+
     </div>
 </template>
 
 <script>
     export default {
-        name: "Conversations"
+        name: "Conversations",
+        methods:{
+            test() {
+                if (window.jQuery) {
+                    // jQuery is loaded
+                    alert("Yeah!");
+                } else {
+                    // jQuery is not loaded
+                    alert("Doesn't Work");
+                }
+            }
+        }
     }
 </script>
 
