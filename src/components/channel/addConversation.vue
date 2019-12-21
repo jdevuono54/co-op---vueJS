@@ -19,10 +19,10 @@
 
         <div class="row">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-secondary btn-block">Annuler</button>
+                <button type="button" class="btn btn-secondary btn-block" @click="$bvModal.hide('modal-conversation')">Annuler</button>
             </div>
             <div class="col-sm-6">
-                <button type="button" class="btn btn-primary btn-block">Valider</button>
+                <button type="button" class="btn btn-primary btn-block" :disabled="!titre || !description" @click="ajouterConversation">Valider</button>
             </div>
         </div>
     </b-modal>
@@ -36,7 +36,23 @@
        titre:null,
        description:null
       }
-     }
+     },
+        methods:{
+            ajouterConversation(){
+                this.$http.post('channels', {
+                    label: this.titre,
+                    topic: this.description,
+                    session_token: this.$store.state.user.token
+                }).then((e) => {
+                    // eslint-disable-next-line no-console
+                    console.log(e.response)
+                }).catch((e) => {
+                    // eslint-disable-next-line no-console
+                    console.log(e.response)
+                })
+
+            }
+        }
     }
 </script>
 

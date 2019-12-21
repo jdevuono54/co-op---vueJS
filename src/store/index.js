@@ -19,7 +19,7 @@ export default new Vuex.Store({
       state.formInscription = !state.formInscription
     },
     saveUserLocalStorage(state,user){
-      state.user = JSON.stringify(user).replace("\\/",'');
+      state.user = user;
     }
   },
   actions: {
