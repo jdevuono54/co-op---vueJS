@@ -50,6 +50,12 @@ router.beforeEach((to, from, next) => {
       query: { returnUrl: to.path }
     });
   }
+  else if(loggedIn && to.path === '/login' || to.path === '/inscription'){
+    return next({
+      path: '/',
+      query: { returnUrl: to.path }
+    });
+  }
 
   next();
 })
