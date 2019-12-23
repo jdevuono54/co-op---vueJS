@@ -1,4 +1,5 @@
 <template>
+    <div class="container">
         <form class="col-sm-6 offset-sm-3" name="login">
             <div class="form-group">
                 <label for="mail">Adresse mail</label>
@@ -25,7 +26,7 @@
                     <button type="button" class="btn btn-primary btn-block" @click="connexion" :disabled="!email || !password">Connexion</button>
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-secondary btn-block" @click="this.$parent.changeForm">S'inscrire</button>
+                    <router-link to="/inscription" class="btn btn-secondary btn-block">Inscription</router-link>
                 </div>
             </div>
 
@@ -33,6 +34,7 @@
                 {{ error }}
             </div>
         </form>
+    </div>
 </template>
 
 <script>

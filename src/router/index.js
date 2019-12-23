@@ -1,20 +1,30 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Auth from "../views/Auth";
 import Channel from "../views/Channel";
+import Inscription from "../views/Inscription";
+import Login from "../views/Login";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'auth',
-    component: Auth
+    path: '/login',
+    name: 'login',
+    component: Login
   },
   {
-    path: '/channel',
+    path: '/inscription',
+    name: 'inscription',
+    component: Inscription
+  },
+  {
+    path: '/',
     name: 'channel',
     component: Channel
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ]
 
@@ -25,7 +35,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let publicPages = ['/'];
+  let publicPages = ['/inscription','/login'];
   let authRequired = !publicPages.includes(to.path);
   let loggedIn =  null;
 
@@ -36,7 +46,7 @@ router.beforeEach((to, from, next) => {
 
   if (authRequired && !loggedIn) {
     return next({
-      path: '/',
+      path: '/login',
       query: { returnUrl: to.path }
     });
   }
