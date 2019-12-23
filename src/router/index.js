@@ -24,4 +24,24 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  let publicPages = ['/'];
+  let authRequired = !publicPages.includes(to.path);
+  let loggedIn =  null;
+
+  if(localStorage.getItem('vuex'))
+  {
+    loggedIn = JSON.parse(localStorage.getItem('vuex')).user
+  }
+
+  if (authRequired && !loggedIn) {
+    return next({
+      path: '/',
+      query: { returnUrl: to.path }
+    });
+  }
+
+  next();
+})
+
 export default router
