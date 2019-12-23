@@ -15,6 +15,10 @@
             <input type="text" class="form-control" v-model="description" placeholder="Saisir la description">
         </div>
 
+        <div class="col alert alert-danger" role="alert" v-show="error">
+            {{ error }}
+        </div>
+
         <hr/>
 
         <div class="row">
@@ -34,21 +38,19 @@
      data:function () {
       return{
        titre:null,
-       description:null
+       description:null,
+       error:null
       }
      },
         methods:{
             ajouterConversation(){
-                this.$http.post('channels', {
+                this.$http.post('channels?token='+this.$store.state.user.token, {
                     label: this.titre,
                     topic: this.description,
-                    session_token: this.$store.state.user.token
-                }).then((e) => {
-                    // eslint-disable-next-line no-console
-                    console.log(e.response)
+                }).then(() => {
+                    this.$bvModal.hide('modal-conversation')
                 }).catch((e) => {
-                    // eslint-disable-next-line no-console
-                    console.log(e.response)
+                    this.error = e.response.data.message
                 })
 
             }
