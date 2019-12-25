@@ -13,7 +13,7 @@
 
                 <tbody>
                 <tr v-bind:key="conversation" v-for="conversation in this.$parent.conversations">
-                    <td scope="row">{{ conversation.label }}</td>
+                    <router-link :to="{ name: 'channel_conv', params : { id: conversation.id} }"><td scope="row">{{ conversation.label }}</td></router-link>
                 </tr>
                 </tbody>
             </div>
