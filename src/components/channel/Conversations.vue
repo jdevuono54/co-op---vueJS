@@ -10,11 +10,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td scope="row">aaaa</td>
-            </tr>
-            <tr>
-                <td scope="row">bbb</td>
+            <tr v-for="conversation in this.$parent.conversations" v-bind:key="conversation">
+                <td scope="row">{{ conversation.label }}</td>
             </tr>
         </tbody>
     </table>
@@ -24,16 +21,18 @@
 <script>
     export default {
         name: "Conversations",
-        methods:{
-            test() {
-                if (window.jQuery) {
-                    // jQuery is loaded
-                    alert("Yeah!");
-                } else {
-                    // jQuery is not loaded
-                    alert("Doesn't Work");
-                }
+        data: function () {
+            return{
+                error:null
             }
+        },
+        mounted() {
+            this.$http.get('channels?token='+this.$store.state.user.token).then((e) => {
+                this.$parent.conversations = e.data
+            }).catch((e) => {
+                this.error = e.response.data.message
+                alert(this.error);
+            })
         }
     }
 </script>

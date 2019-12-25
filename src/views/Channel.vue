@@ -10,6 +10,11 @@
     import AddConversation from "../components/channel/addConversation";
     export default {
         name: "Channel",
+        data: function(){
+            return{
+                conversations:null
+            }
+        },
         components: {AddConversation, Conversations}
     }
 </script>

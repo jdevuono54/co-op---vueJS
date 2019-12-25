@@ -47,7 +47,8 @@
                 this.$http.post('channels?token='+this.$store.state.user.token, {
                     label: this.titre,
                     topic: this.description,
-                }).then(() => {
+                }).then((response) => {
+                    this.$parent.conversations.push(response.data)
                     this.$bvModal.hide('modal-conversation')
                 }).catch((e) => {
                     this.error = e.response.data.message
