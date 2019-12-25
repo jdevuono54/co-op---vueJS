@@ -1,33 +1,37 @@
 <template>
     <div class="Conversation">
-    <table class="table table-hover">
-        <thead class="thead-light">
+        <table class="table table-hover table-striped">
+            <thead class="thead-light">
             <tr>
                 <th scope="col">
                     Conversations
-                    <b-button v-b-modal.modal-conversation class="btn btn-info">Nouvelle conversation</b-button>
+                    <b-button class="btn btn-info" v-b-modal.modal-conversation>Nouvelle conversation</b-button>
                 </th>
             </tr>
-        </thead>
-        <tbody>
-            <tr v-for="conversation in this.$parent.conversations" v-bind:key="conversation">
-                <td scope="row">{{ conversation.label }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </thead>
+            <div class="table-responsive">
+
+                <tbody>
+                <tr v-bind:key="conversation" v-for="conversation in this.$parent.conversations">
+                    <td scope="row">{{ conversation.label }}</td>
+                </tr>
+                </tbody>
+            </div>
+        </table>
     </div>
+
 </template>
 
 <script>
     export default {
         name: "Conversations",
         data: function () {
-            return{
-                error:null
+            return {
+                error: null
             }
         },
         mounted() {
-            this.$http.get('channels?token='+this.$store.state.user.token).then((e) => {
+            this.$http.get('channels?token=' + this.$store.state.user.token).then((e) => {
                 this.$parent.conversations = e.data
             }).catch((e) => {
                 this.error = e.response.data.message
@@ -38,5 +42,11 @@
 </script>
 
 <style scoped>
+    .table-responsive {
+        max-height: 600px;
+    }
 
+    td {
+        width: 100vw;
+    }
 </style>
