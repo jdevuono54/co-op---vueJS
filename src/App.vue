@@ -9,6 +9,7 @@
 
 <style lang="scss">
     @import "../node_modules/bootstrap/scss/bootstrap.scss";
+    @import "../node_modules/bootstrap-vue/dist/bootstrap-vue.min.css";
 
     .alert{
         margin-top: 1em;

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="Channel_conv container-fluid">
         <input type="text" v-model="message">
         <button type="button" @click="ajouterMessage">aaaa</button>
     </div>
@@ -11,15 +11,14 @@
         data: function() {
             return {
                 message:null,
-                error:null,
             }
         },
         methods:{
-            makeToast() {
-                this.toastCount++
-                this.$bvToast.toast(`This is toast number ${this.toastCount}`, {
-                    title: 'BootstrapVue Toast',
-                    autoHideDelay: 50000
+            makeToast(errorMsg) {
+                this.$root.$bvToast.toast(errorMsg, {
+                    title:"⚠ Erreur !",
+                    variant:"danger",
+                    noCloseButton:true
                 })
             },
             ajouterMessage(){
@@ -29,8 +28,7 @@
                     this.$parent.conversations.push(response.data)
                     this.$bvModal.hide('modal-conversation')
                 }).catch((e) => {
-                    this.error = e.response.data.message
-                    this.makeToast()
+                    this.makeToast(e.response.data.message)
                 })
 
             }
@@ -39,5 +37,4 @@
 </script>
 
 <style scoped>
-
 </style>
