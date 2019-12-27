@@ -19,7 +19,7 @@
             <div class="table-responsive">
 
                 <tbody>
-                <tr v-bind:key="conversation" v-for="conversation in this.$parent.conversations">
+                <tr v-for="(conversation,id) in this.$parent.conversations" v-bind:key="id">
                     <router-link :to="{ name: 'channel_conv', params : { id: conversation.id} }"><td scope="row">{{ conversation.label }}</td></router-link>
                 </tr>
                 </tbody>
