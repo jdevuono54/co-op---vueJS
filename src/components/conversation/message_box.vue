@@ -1,7 +1,7 @@
 <template>
     <div class="message_box">
         <div v-for="(message,id) in $parent.conversation" v-bind:key="id" class="row" :class="[ message.member_id === $store.state.user.member.id ? ['user_message','flex-row-reverse'] : 'other_user_message']">
-            <p class="message">{{ message.message }}</p>
+            <img :src="'https://api.adorable.io/avatars/40/'+message.member_id"><p class="message">{{ message.message }}</p>
         </div>
     </div>
 </template>
@@ -43,15 +43,23 @@
         max-width: 40%;
         word-break: break-word;
     }
+    .user_message > img, .other_user_message > img{
+        border-radius: 50%;
+        max-width: 30px;
+        max-height: 30px;
+        align-self: end;
+    }
     .message:not(:last-of-type){
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     }
     .user_message > p{
         background-color: #009bd8;
         color:white;
+        margin-right: 0.5em;
     }
     .other_user_message > p{
         background-color: #eeeeee;
         color: black;
+        margin-left: 0.5em;
     }
 </style>
