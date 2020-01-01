@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Channel from "../views/Channel";
+import Channels from "../views/Channels";
 import Inscription from "../views/Inscription";
 import Login from "../views/Login";
 import Channel_conv from "../views/Channel_conv";
+import Members from "../views/Members";
 
 Vue.use(VueRouter)
 
@@ -19,15 +20,20 @@ const routes = [
     component: Inscription
   },
   {
-    path: '/channel',
-    name: 'channel',
+    path: '/channels',
+    name: 'channels',
     alias: '/',
-    component: Channel
+    component: Channels
   },
   {
-    path: '/channel/:id',
+    path: '/channels/:id',
     name: 'channel_conv',
     component: Channel_conv
+  },
+  {
+    path: '/members',
+    name: 'members',
+    component: Members
   },
   {
     path: '*',
