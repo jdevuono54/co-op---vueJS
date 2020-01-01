@@ -22,7 +22,7 @@
                     this.$parent.conversation = response.data
                     this.$parent.conversation.reverse("created_at")
                 }).catch((e) => {
-                    this.makeToast(e.response.data.message)
+                    this.$root.makeToast(e.response.data.message)
                 })
 
             }

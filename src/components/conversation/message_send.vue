@@ -25,7 +25,7 @@
                     this.$parent.$data.conversation.push(response.data)
                     this.message = null;
                 }).catch((e) => {
-                    this.$parent.makeToast(e.response.data.message)
+                    this.$root.makeToast(e.response.data.message)
                 })
 
             }

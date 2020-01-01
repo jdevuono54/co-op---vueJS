@@ -19,13 +19,7 @@
             }
         },
         methods: {
-            makeToast(errorMsg) {
-                this.$root.$bvToast.toast(errorMsg, {
-                    title: "⚠ Erreur !",
-                    variant: "danger",
-                    noCloseButton: true
-                })
-            }
+
         }
     }
 </script>
