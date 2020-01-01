@@ -6,8 +6,8 @@
 </template>
 
 <script>
-    import Conversations from "../components/channel/Conversations";
-    import AddConversation from "../components/channel/addConversation";
+    import Conversations from "../components/channels/Conversations";
+    import AddConversation from "../components/channels/addConversation";
     export default {
         name: "Channel",
         data: function(){
