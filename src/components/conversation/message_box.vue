@@ -31,11 +31,14 @@
 </script>
 
 <style scoped>
+
     .message_box{
         padding: 1em 2em;
         max-height: 80vh;
-        overflow-y: scroll;
+        height: 80vh;
+        overflow-y: auto;
     }
+
     .message{
         font-size: 1em;
         border-radius: 20px;
