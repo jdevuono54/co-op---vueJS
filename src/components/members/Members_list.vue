@@ -16,7 +16,7 @@
                 <div class="table-responsive">
 
                     <tbody>
-                    <tr v-for="(membre,id) in this.$parent.membres" v-bind:key="id">
+                    <tr v-for="(membre,id) in this.$parent.membres" v-bind:key="id" @click="$parent.selected_membre = membre" v-b-modal.modal-profil>
                         <td scope="row">{{ membre.fullname }}</td>
                     </tr>
                     </tbody>
