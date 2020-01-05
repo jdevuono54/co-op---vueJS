@@ -17,7 +17,7 @@
         </div>
         <div class="row" v-if="this.$store.state.user.member.id != member.id">
             <div class="col-sm">
-                <button type="button" class="btn btn-danger">Supprimer l'utilisateur</button>
+                <button type="button" class="btn btn-danger" @click="deleteMember">Supprimer l'utilisateur</button>
             </div>
         </div>
     </b-modal>
@@ -26,7 +26,18 @@
 <script>
     export default {
         name: "profil_modal",
-        props:["member"]
+        props:["member"],
+        methods:{
+            deleteMember(){
+                this.$bvModal.hide('modal-profil')
+
+                this.$http.delete('members/'+this.$props.member.id+'?token=' + this.$store.state.user.token).then(() => {
+                    this.$parent.membres.splice(this.$parent.membres.indexOf(this.$props.member),1)
+                }).catch((e) => {
+                    this.$root.makeToast(e.response.data.message)
+                })
+            }
+        }
     }
 </script>
 
