@@ -1,22 +1,35 @@
 <template>
     <div class="message_box">
         <div v-for="(message,id) in $parent.conversation" v-bind:key="id" class="row" :class="[ message.member_id === $store.state.user.member.id ? ['user_message','flex-row-reverse'] : 'other_user_message']">
-            <img :src="'https://api.adorable.io/avatars/40/'+message.member_id"><p class="message">{{ message.message }}</p>
+            <img :src="'https://api.adorable.io/avatars/40/'+message.member_id" @click="userSelected(message.member_id)"><p class="message">{{ message.message }}</p>
         </div>
+        <profil_modal :member="user_select"></profil_modal>
     </div>
 </template>
 
 <script>
+    import profil_modal from "../profil_modal";
     export default {
         name: "message_box",
+        components:{profil_modal},
         data: function () {
             return {
+                membres:null,
+                user_select:null
             }
         },
         mounted() {
+            this.loadMembres()
             this.loadMessage()
         },
         methods: {
+            userSelected(id_selected){
+                this.membres.forEach((membre) => {
+                    if(membre.id === id_selected){
+                        this.user_select = membre
+                        this.$bvModal.show("modal-profil")
+                }})
+            },
             loadMessage() {
                 this.$http.get('channels/' + this.$route.params.id + '/posts?token=' + this.$store.state.user.token).then((response) => {
                     this.$parent.conversation = response.data
@@ -25,6 +38,13 @@
                     this.$root.makeToast(e.response.data.message)
                 })
 
+            },
+            loadMembres(){
+                this.$http.get('members?token=' + this.$store.state.user.token).then((e) => {
+                    this.membres = e.data
+                }).catch((e) => {
+                    this.$root.makeToast(e.response.data.message)
+                })
             }
         }
     }
