@@ -15,7 +15,7 @@
         data: function () {
             return {
                 membres:null,
-                user_select:null
+                user_select:" "
             }
         },
         mounted() {

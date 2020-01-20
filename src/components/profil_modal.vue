@@ -26,7 +26,7 @@
 <script>
     export default {
         name: "profil_modal",
-        props:["member"],
+        props:["member","conversations"],
         methods:{
             deleteMember(){
                 this.$bvModal.hide('modal-profil')
