@@ -22,9 +22,15 @@
         </div>
         <div class="row">
             <div class="col-sm">
-                <button type="button" class="btn btn-primary" @click="loadOldMessages">Voir les 10 derniers messages</button>
+                <button type="button" class="btn btn-primary" @click="loadOldMessagesUser">Voir les 10 derniers messages</button>
             </div>
         </div>
+
+        <ul id="example-1">
+            <li v-for="(message,id) in this.allMessagesUser" v-bind:key="id">
+                {{ message.message }}
+            </li>
+        </ul>
     </b-modal>
 </template>
 
@@ -34,7 +40,7 @@
         props:["member","conversations"],
         data: function () {
             return {
-                AllMessages: []
+                allMessagesUser: []
             }
         },
         methods:{
@@ -47,41 +53,23 @@
                     this.$root.makeToast(e.response.data.message)
                 })
             },
-            loadOldMessages(){
-                this.AllMessages = []
-                this.loadChannels()
-            },
-            loadChannels(){
-                this.$http.get('channels?token=' + this.$store.state.user.token).then((e) => {
-                    e.data.forEach( (channel) => {
-                        this.loadAllMessageChannel(channel.id)
-                    })
-                    this.sortUserMessage(this.AllMessages)
-                }).catch((e) => {
-                    this.error = e.response.data.message
-                    alert(this.error);
-                })
-            },
-            loadAllMessageChannel(idChannel) {
-                this.$http.get('channels/' + idChannel + '/posts?token=' + this.$store.state.user.token).then((response) => {
-                    this.AllMessages.push(response.data)
-                }).catch((e) => {
-                    this.$root.makeToast(e.response.data.message)
-                })
+            loadOldMessagesUser(){
+                this.allMessagesUser = []
 
-            },
-            sortUserMessage(AllMessages){
-                // eslint-disable-next-line no-console
-                console.log(AllMessages)
-                AllMessages.forEach((conv) => {
-                    conv.forEach((message) => {
-                        if(message.member_id === this.member.id){
-                            // eslint-disable-next-line no-console
-                            console.log("ok")
-                        }
+                this.$http.get('channels?token=' + this.$store.state.user.token).then(response => {
+                    let channels = response.data;
+                    channels.forEach(channel => {
+                        this.$http.get('channels/'+channel.id+'/posts?token=' + this.$store.state.user.token).then(response => {
+                            let messages = response.data;
+                            messages.forEach(message => {
+                                if(message.member_id === this.member.id) {
+                                    this.allMessagesUser.push(message);
+                                }
+                            })
+                        });
                     })
-                })
-            },
+                });
+            }
         }
     }
 </script>
