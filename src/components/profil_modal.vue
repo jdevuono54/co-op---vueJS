@@ -22,13 +22,16 @@
         </div>
         <div class="row">
             <div class="col-sm">
-                <button type="button" class="btn btn-primary" @click="loadOldMessagesUser">Voir les 10 derniers messages</button>
+                <b-button variant="primary" @click="loadOldMessagesUser">
+                    Voir les 10 derniers messages
+                    <b-spinner small v-show="showSpinner"></b-spinner>
+                </b-button>
             </div>
         </div>
 
-        <ul id="example-1">
-            <li v-for="(message,id) in this.allMessagesUser" v-bind:key="id">
-                {{ message.message }}
+        <ul>
+            <li v-for="(message,id) in sortedUserMessages" v-bind:key="id">
+                {{ message.message }} {{ message.created_at }}
             </li>
         </ul>
     </b-modal>
@@ -40,8 +43,26 @@
         props:["member","conversations"],
         data: function () {
             return {
-                allMessagesUser: []
+                allMessagesUser: [],
+                showSpinner:false
             }
+        },
+        computed:{
+            sortedUserMessages(){
+                let messages = this.allMessagesUser;
+
+                if(messages.length) {
+                    messages.sort((a, b) => {
+                        new Date(b.created_at).toLocaleDateString() > new Date(a.created_at).toLocaleDateString();
+                    });
+
+                    if (messages.length > 10) {
+                        messages.length = 10;
+                    }
+                }
+
+                return messages;
+            },
         },
         methods:{
             deleteMember(){
@@ -54,6 +75,7 @@
                 })
             },
             loadOldMessagesUser(){
+                this.showSpinner = true;
                 this.allMessagesUser = []
 
                 this.$http.get('channels?token=' + this.$store.state.user.token).then(response => {
@@ -68,6 +90,7 @@
                             })
                         });
                     })
+                    this.showSpinner = false;
                 });
             }
         }
