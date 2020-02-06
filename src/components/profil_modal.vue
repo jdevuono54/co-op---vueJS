@@ -40,7 +40,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(message,id) in this.sortedUserMessages" v-bind:key="id">
+                    <tr v-for="(message,id) in this.sortedUserMessages.slice(0,9)" v-bind:key="id">
 
                         <td>{{ message.channel }}</td>
                         <td>{{ message.message }}</td>
@@ -66,18 +66,8 @@
         },
         computed:{
             sortedUserMessages(){
-                let messages = this.allMessagesUser;
-
-                    messages.sort((a, b) => {
-                        new Date(b.created_at).toLocaleDateString() > new Date(a.created_at).toLocaleDateString();
-                    });
-
-                    if (messages.length > 10) {
-                        messages.length = 10;
-                    }
-
-                messages = this.setChannelName(messages);
-                return messages;
+                this.setChannelName(this.allMessagesUser)
+                return this._.orderBy(this.allMessagesUser, 'created_at',"desc")
             }
         },
         methods:{

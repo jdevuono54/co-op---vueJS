@@ -13,6 +13,9 @@ import { faBars,
         faUser
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import VueLodash from 'vue-lodash'
+
+Vue.use(VueLodash)
 
 Vue.use(BootstrapVue)
 
