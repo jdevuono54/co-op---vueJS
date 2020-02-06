@@ -22,18 +22,34 @@
         </div>
         <div class="row">
             <div class="col-sm">
-                <b-button variant="primary" @click="loadOldMessagesUser">
+                <b-button variant="primary" @click="loadOldMessagesUser" :disabled="showSpinner">
                     Voir les 10 derniers messages
                     <b-spinner small v-show="showSpinner"></b-spinner>
                 </b-button>
             </div>
         </div>
 
-        <ul>
-            <li v-for="(message,id) in sortedUserMessages" v-bind:key="id">
-                {{ message.message }} {{ message.created_at }}
-            </li>
-        </ul>
+        <div class="row">
+            <div class="col-sm">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Conversation</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Date d'envoi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(message,id) in this.sortedUserMessages" v-bind:key="id">
+
+                        <td>{{ message.channel }}</td>
+                        <td>{{ message.message }}</td>
+                        <td>{{ message.created_at }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </b-modal>
 </template>
 
@@ -44,14 +60,14 @@
         data: function () {
             return {
                 allMessagesUser: [],
-                showSpinner:false
+                showSpinner:false,
+                channels:[]
             }
         },
         computed:{
             sortedUserMessages(){
                 let messages = this.allMessagesUser;
 
-                if(messages.length) {
                     messages.sort((a, b) => {
                         new Date(b.created_at).toLocaleDateString() > new Date(a.created_at).toLocaleDateString();
                     });
@@ -59,12 +75,24 @@
                     if (messages.length > 10) {
                         messages.length = 10;
                     }
-                }
 
+                messages = this.setChannelName(messages);
                 return messages;
-            },
+            }
         },
         methods:{
+            setChannelName(messages){
+                let result = [];
+                messages.forEach((message) => {
+                    this.channels.forEach((channel) => {
+                        if(channel.id === message.channel_id){
+                            message.channel = channel.label
+                        }
+                    })
+                    result.push(message)
+                })
+                return result
+            },
             deleteMember(){
                 this.$bvModal.hide('modal-profil')
 
@@ -79,8 +107,8 @@
                 this.allMessagesUser = []
 
                 this.$http.get('channels?token=' + this.$store.state.user.token).then(response => {
-                    let channels = response.data;
-                    channels.forEach(channel => {
+                    this.channels = response.data;
+                    this.channels.forEach(channel => {
                         this.$http.get('channels/'+channel.id+'/posts?token=' + this.$store.state.user.token).then(response => {
                             let messages = response.data;
                             messages.forEach(message => {
@@ -104,5 +132,13 @@
     .row{
         text-align: center;
         margin-top: 1em;
+    }
+    table{
+        table-layout: fixed;
+    }
+    td{
+        overflow: hidden;
+        font-size: 0.8em;
+        padding: 0.1em;
     }
 </style>
