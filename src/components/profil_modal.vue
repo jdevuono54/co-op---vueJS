@@ -42,7 +42,7 @@
                     <tbody>
                     <tr v-for="(message,id) in this.sortedUserMessages.slice(0,9)" v-bind:key="id">
 
-                        <td>{{ message.channel }}</td>
+                        <td @click="changConv(message.channel_id)">{{ message.channel }}</td>
                         <td>{{ message.message }}</td>
                         <td>{{ message.created_at }}</td>
                     </tr>
@@ -71,6 +71,10 @@
             }
         },
         methods:{
+            changConv(channel_id){
+                this.$router.push({ name: 'channel_conv', params: { id: channel_id } })
+                this.$router.go()
+            },
             setChannelName(messages){
                 let result = [];
                 messages.forEach((message) => {
