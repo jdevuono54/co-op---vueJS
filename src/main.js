@@ -10,7 +10,8 @@ import { faBars,
         faHeading,
         faKey,
         faEnvelope,
-        faUser
+        faUser,
+        faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueLodash from 'vue-lodash'
@@ -19,10 +20,10 @@ Vue.use(VueLodash)
 
 Vue.use(BootstrapVue)
 
-library.add(faBars,faHeading,faKey,faEnvelope,faUser);
+library.add(faBars,faHeading,faKey,faEnvelope,faUser,faTrash);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
-
+Vue.prototype.$bus = new Vue()
 Vue.config.productionTip = false;
 
 const base = axios.create({
@@ -46,5 +47,16 @@ new Vue({
                 noCloseButton: true
             })
         }
+    },
+    beforeCreate() {
+        this.$http.interceptors.request.use((config) => {
+            if(this.$store.state.user) {
+                config.url+='?token='+this.$store.state.user.token;
+            }
+            return config
+        }, error => {
+            // eslint-disable-next-line no-console
+            return console.log(error)
+        })
     }
 }).$mount('#app')

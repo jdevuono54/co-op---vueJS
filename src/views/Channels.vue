@@ -15,6 +15,20 @@
                 conversations:null
             }
         },
+        created() {
+            this.$bus.$on('deleteConv',(conversation) => {
+                this.removeConv(conversation)
+            })
+        },
+        methods:{
+          removeConv(conversation){
+                this.$http.delete('channels/' + conversation.id).then(() => {
+                    this.conversations.splice(this.conversations.indexOf(conversation),1)
+                }).catch((e) => {
+                    this.$root.makeToast(e.response.data.message)
+                })
+            }
+        },
         components: {AddConversation, Conversations}
     }
 </script>

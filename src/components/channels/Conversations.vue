@@ -19,8 +19,13 @@
             <div class="table-responsive">
 
                 <tbody>
-                <tr v-for="(conversation,id) in this.$parent.conversations" v-bind:key="id">
-                    <router-link :to="{ name: 'channel_conv', params : { id: conversation.id} }"><td scope="row">{{ conversation.label }}</td></router-link>
+                <tr v-for="(conversation,id) in this.$parent.conversations" v-bind:key="id" @mouseover="hover = conversation.id" @mouseleave="hover = null">
+                    <router-link :to="{ name: 'channel_conv', params : { id: conversation.id} }">
+                        <td scope="row">
+                            {{ conversation.label }}
+                            <font-awesome-icon icon="trash" class="icon alt" v-if="hover === conversation.id" @click.prevent="deleteConv(conversation)"/>
+                        </td>
+                    </router-link>
                 </tr>
                 </tbody>
             </div>
@@ -35,16 +40,24 @@
         name: "Conversations",
         data: function () {
             return {
-                error: null
+                error: null,
+                hover:null
             }
         },
         mounted() {
-            this.$http.get('channels?token=' + this.$store.state.user.token).then((e) => {
+            this.$http.get('channels').then((e) => {
                 this.$parent.conversations = e.data
             }).catch((e) => {
                 this.error = e.response.data.message
                 alert(this.error);
             })
+        },
+        methods:{
+          deleteConv(conv){
+              if(confirm("Êtes-vous sûr ?") === true){
+                  this.$bus.$emit('deleteConv',conv)
+              }
+            }
         }
     }
 </script>
