@@ -23,7 +23,11 @@
                     <router-link :to="{ name: 'channel_conv', params : { id: conversation.id} }">
                         <td scope="row">
                             {{ conversation.label }}
-                            <font-awesome-icon icon="trash" class="icon alt" v-if="hover === conversation.id" @click.prevent="deleteConv(conversation)"/>
+                            <span v-if="hover === conversation.id">
+                                <font-awesome-icon icon="trash" class="icon alt iconDelete" @click.prevent="deleteConv(conversation)"/>
+                                <font-awesome-icon icon="edit" class="icon alt" @click.prevent="editConv(conversation)"/>
+                            </span>
+
                         </td>
                     </router-link>
                 </tr>
@@ -57,6 +61,9 @@
               if(confirm("Êtes-vous sûr ?") === true){
                   this.$bus.$emit('deleteConv',conv)
               }
+            },
+            editConv(conv){
+                return conv;
             }
         }
     }
@@ -71,5 +78,9 @@
         #btn_new_conv{
             text-align: center;
         }
+    }
+    .iconDelete{
+        margin-right: 1em;
+        margin-left: 1em;
     }
 </style>

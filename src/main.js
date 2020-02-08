@@ -11,7 +11,8 @@ import { faBars,
         faKey,
         faEnvelope,
         faUser,
-        faTrash
+        faTrash,
+        faEdit
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueLodash from 'vue-lodash'
@@ -20,7 +21,7 @@ Vue.use(VueLodash)
 
 Vue.use(BootstrapVue)
 
-library.add(faBars,faHeading,faKey,faEnvelope,faUser,faTrash);
+library.add(faBars,faHeading,faKey,faEnvelope,faUser,faTrash,faEdit);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.prototype.$bus = new Vue()
