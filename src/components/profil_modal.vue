@@ -90,7 +90,7 @@
             deleteMember(){
                 this.$bvModal.hide('modal-profil')
 
-                this.$http.delete('members/'+this.$props.member.id+'?token=' + this.$store.state.user.token).then(() => {
+                this.$http.delete('members/'+this.$props.member.id).then(() => {
                     this.$parent.membres.splice(this.$parent.membres.indexOf(this.$props.member),1)
                 }).catch((e) => {
                     this.$root.makeToast(e.response.data.message)
@@ -100,10 +100,10 @@
                 this.showSpinner = true;
                 this.allMessagesUser = []
 
-                this.$http.get('channels?token=' + this.$store.state.user.token).then(response => {
+                this.$http.get('channels').then(response => {
                     this.channels = response.data;
                     this.channels.forEach(channel => {
-                        this.$http.get('channels/'+channel.id+'/posts?token=' + this.$store.state.user.token).then(response => {
+                        this.$http.get('channels/'+channel.id+'/posts').then(response => {
                             let messages = response.data;
                             messages.forEach(message => {
                                 if(message.member_id === this.member.id) {
@@ -113,6 +113,8 @@
                         });
                     })
                     this.showSpinner = false;
+                }).catch((e) => {
+                        this.$root.makeToast(e.response.data.message)
                 });
             }
         }

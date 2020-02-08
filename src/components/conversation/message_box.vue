@@ -31,7 +31,7 @@
                 }})
             },
             loadMessage() {
-                this.$http.get('channels/' + this.$route.params.id + '/posts?token=' + this.$store.state.user.token).then((response) => {
+                this.$http.get('channels/' + this.$route.params.id + '/posts').then((response) => {
                     this.$parent.conversation = response.data
                     this.$parent.conversation.reverse("created_at")
                 }).catch((e) => {
@@ -40,7 +40,7 @@
 
             },
             loadMembres(){
-                this.$http.get('members?token=' + this.$store.state.user.token).then((e) => {
+                this.$http.get('members').then((e) => {
                     this.membres = e.data
                 }).catch((e) => {
                     this.$root.makeToast(e.response.data.message)

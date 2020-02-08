@@ -44,7 +44,7 @@
      },
         methods:{
             ajouterConversation(){
-                this.$http.post('channels?token='+this.$store.state.user.token, {
+                this.$http.post('channels', {
                     label: this.titre,
                     topic: this.description,
                 }).then((response) => {

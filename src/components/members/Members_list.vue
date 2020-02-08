@@ -30,7 +30,7 @@
     export default {
         name: "Members_list",
         mounted() {
-            this.$http.get('members?token=' + this.$store.state.user.token).then((e) => {
+            this.$http.get('members').then((e) => {
                 this.$parent.membres = e.data
             }).catch((e) => {
                 this.$root.makeToast(e.response.data.message)

@@ -19,7 +19,7 @@
         },
         methods: {
             ajouterMessage() {
-                this.$http.post('channels/' + this.$route.params.id + '/posts?token=' + this.$store.state.user.token, {
+                this.$http.post('channels/' + this.$route.params.id + '/posts', {
                     message: this.message,
                 }).then((response) => {
                     this.$parent.$data.conversation.push(response.data)
