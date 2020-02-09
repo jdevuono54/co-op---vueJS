@@ -1,13 +1,13 @@
 <template>
     <div class="channel container-fluid">
-        <Conversations></Conversations>
+        <Conversations :conversations="conversations"></Conversations>
         <add-conversation :editConv="editConv"></add-conversation>
     </div>
 </template>
 
 <script>
     import Conversations from "../components/channels/Conversations";
-    import AddConversation from "../components/channels/addConversation";
+    import AddConversation from "../components/channels/modalConversations";
     export default {
         name: "Channel",
         data: function(){
@@ -15,6 +15,9 @@
                 conversations:null,
                 editConv:null
             }
+        },
+        mounted() {
+            this.getConversations()
         },
         created() {
             this.$bus.$on('deleteConv',(conversation) => {
@@ -36,6 +39,14 @@
             })
         },
         methods:{
+            getConversations(){
+                this.$http.get('channels').then((e) => {
+                    this.conversations = this._.orderBy(e.data,"created_at",'asc')
+                }).catch((e) => {
+                    this.error = e.response.data.message
+                    alert(this.error);
+                })
+            },
           removeConv(conversation){
                 this.$http.delete('channels/' + conversation.id).then(() => {
                     this.conversations.splice(this.conversations.indexOf(conversation),1)

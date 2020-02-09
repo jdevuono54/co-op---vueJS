@@ -3,14 +3,18 @@
 
         <div class="input-group mb-2">
             <div class="input-group-prepend">
-                <div class="input-group-text"><font-awesome-icon icon="heading" class="icon alt"/></div>
+                <div class="input-group-text">
+                    <font-awesome-icon icon="heading" class="icon alt"/>
+                </div>
             </div>
             <input type="text" class="form-control" v-model="title" placeholder="Saisir le titre">
         </div>
 
         <div class="input-group mb-2">
             <div class="input-group-prepend">
-                <div class="input-group-text"><font-awesome-icon icon="bars" class="icon alt"/></div>
+                <div class="input-group-text">
+                    <font-awesome-icon icon="bars" class="icon alt"/>
+                </div>
             </div>
             <input type="text" class="form-control" v-model="descript" placeholder="Saisir la description">
         </div>
@@ -36,38 +40,40 @@
 <script>
     export default {
         name: "addConversation",
-        props:["editConv"],
-        data:function () {
-      return{
-       titre:null,
-       description:null,
-       error:null
-      }
-     },
+        props: ["editConv"],
+        data: function () {
+            return {
+                titre: null,
+                description: null,
+                error: null
+            }
+        },
         computed: {
             title: {
-                get: function() {
-                    return this.editConv === null ?  this.titre :  this.editConv.label
+                get: function () {
+                    return this.editConv === null ? this.titre : this.editConv.label
                 },
-                set: function(newValue) {
+                set: function (newValue) {
                     this.titre = newValue
                 }
             },
             descript: {
-                get: function() {
-                    return this.editConv === null ?  this.description :  this.editConv.topic
+                get: function () {
+                    return this.editConv === null ? this.description : this.editConv.topic
                 },
-                set: function(newValue) {
+                set: function (newValue) {
                     this.description = newValue
                 }
             }
         },
-        methods:{
-            ajouterConversation(){
-                this.$bus.$emit('createConv',this.titre,this.description)
+        methods: {
+            ajouterConversation() {
+                this.$bus.$emit('createConv', this.titre, this.description)
+                this.titre = null
+                this.description = null
             },
-            modifierConversation(){
-                this.$bus.$emit('editConv',this.editConv.id,this.titre,this.description)
+            modifierConversation() {
+                this.$bus.$emit('editConv', this.editConv.id, this.titre, this.description)
             }
         }
     }
