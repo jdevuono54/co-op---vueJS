@@ -10,7 +10,7 @@
                         Conversations
                     </b-col>
                     <b-col sm="12" md="6" id="btn_new_conv">
-                        <b-button class="btn btn-info" v-b-modal.modal-conversation>Nouvelle conversation</b-button>
+                        <b-button class="btn btn-info" @click="addConv">Nouvelle conversation</b-button>
                     </b-col>
                     </b-row>
                 </th>
@@ -50,7 +50,7 @@
         },
         mounted() {
             this.$http.get('channels').then((e) => {
-                this.$parent.conversations = e.data
+                this.$parent.conversations = this._.orderBy(e.data,"created_at",'asc')
             }).catch((e) => {
                 this.error = e.response.data.message
                 alert(this.error);
@@ -63,7 +63,10 @@
               }
             },
             editConv(conv){
-                return conv;
+                this.$bus.$emit('showEditConvModal',conv)
+            },
+            addConv(){
+                this.$bus.$emit('showAddConvModal')
             }
         }
     }
