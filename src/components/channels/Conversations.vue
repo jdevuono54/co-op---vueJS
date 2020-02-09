@@ -19,8 +19,7 @@
                 <div class="table-responsive">
 
                     <tbody>
-                    <tr @mouseleave="hover = null" @mouseover="hover = conversation.id" v-bind:key="id"
-                        v-for="(conversation,id) in conversations">
+                    <tr @mouseleave="hover = null" @mouseover="hover = conversation.id" v-bind:key="id" v-for="(conversation,id) in conversations">
                         <router-link :to="{ name: 'channel_conv', params : { id: conversation.id} }">
                             <td scope="row">
 

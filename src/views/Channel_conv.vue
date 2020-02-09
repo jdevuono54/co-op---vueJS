@@ -18,8 +18,19 @@
                 conversation: null
             }
         },
+        created() {
+            this.$bus.$on('deleteMessage',(message) => {
+                this.removeMessage(message)
+            })
+        },
         methods: {
-
+            removeMessage(message){
+                this.$http.delete('channels/' + message.channel_id + "/posts/" +message.id).then(() => {
+                    this.conversation.splice(this.conversation.indexOf(message),1)
+                }).catch((e) => {
+                    this.$root.makeToast(e.response.data.message)
+                })
+            },
         }
     }
 </script>
