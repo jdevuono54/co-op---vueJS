@@ -3,7 +3,7 @@
         <div v-for="(message,id) in $parent.conversation" v-bind:key="id" class="row" :class="[ message.member_id === $store.state.user.member.id ? ['user_message','flex-row-reverse'] : 'other_user_message']" @mouseleave="hover = null" @mouseover="hover = message.id">
             <img :src="'https://api.adorable.io/avatars/40/'+message.member_id" @click="userSelected(message.member_id)"><p class="message">{{ message.message }}</p>
             <span v-if="hover === message.id">
-                <font-awesome-icon @click="deleteMessage(message)" class="icon alt iconDelete" icon="trash"/>
+                <font-awesome-icon @click="deleteMessage(message)" class="icon alt iconDelete" icon="trash" v-if="message.member_id === $store.state.user.member.id"/>
             </span>
         </div>
         <profil_modal :member="user_select"></profil_modal>
