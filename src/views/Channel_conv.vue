@@ -22,18 +22,26 @@
             this.$bus.$on('deleteMessage',(message) => {
                 this.removeMessage(message)
             })
-            this.$bus.$on('loadMessage',(conversation) => {
-                this.conversation = conversation;
-                this.conversation.reverse("created_at")
-            })
             this.$bus.$on('addMessage',(message) => {
                 this.conversation.push(message)
             })
+        },
+        mounted: function() {
+            this.loadMessage()
+            setInterval(this.loadMessage,3000)
         },
         methods: {
             removeMessage(message){
                 this.$http.delete('channels/' + message.channel_id + "/posts/" +message.id).then(() => {
                     this.conversation.splice(this.conversation.indexOf(message),1)
+                }).catch((e) => {
+                    this.$root.makeToast(e.response.data.message)
+                })
+            },
+            loadMessage() {
+                this.$http.get('channels/' + this.$route.params.id + '/posts').then((response) => {
+                    this.conversation = response.data;
+                    this.conversation.reverse("created_at")
                 }).catch((e) => {
                     this.$root.makeToast(e.response.data.message)
                 })

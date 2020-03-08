@@ -24,7 +24,6 @@
         },
         mounted() {
             this.loadMembres()
-            this.loadMessage()
         },
         methods: {
             userSelected(id_selected){
@@ -33,14 +32,6 @@
                         this.user_select = membre
                         this.$bvModal.show("modal-profil")
                 }})
-            },
-            loadMessage() {
-                this.$http.get('channels/' + this.$route.params.id + '/posts').then((response) => {
-                    this.$bus.$emit('loadMessage', response.data)
-                }).catch((e) => {
-                    this.$root.makeToast(e.response.data.message)
-                })
-
             },
             loadMembres(){
                 this.$http.get('members').then((e) => {
