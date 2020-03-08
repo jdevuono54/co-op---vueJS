@@ -36,8 +36,7 @@
             },
             loadMessage() {
                 this.$http.get('channels/' + this.$route.params.id + '/posts').then((response) => {
-                    this.$parent.conversation = response.data
-                    this.$parent.conversation.reverse("created_at")
+                    this.$bus.$emit('loadMessage', response.data)
                 }).catch((e) => {
                     this.$root.makeToast(e.response.data.message)
                 })
