@@ -16,7 +16,7 @@
                 <div class="table-responsive">
 
                     <tbody>
-                    <tr v-for="(membre,id) in this.$parent.membres" v-bind:key="id" @click="$parent.selected_membre = membre" v-b-modal.modal-profil>
+                    <tr v-for="(membre,id) in this.membres" v-bind:key="id" @click="$bus.$emit('changeSelectedMembre',membre)" v-b-modal.modal-profil>
                         <td scope="row">{{ membre.fullname }}</td>
                     </tr>
                     </tbody>
@@ -29,6 +29,7 @@
 <script>
     export default {
         name: "Members_list",
+        props:["membres"],
         mounted() {
             this.$http.get('members').then((response) => {
                 this.$bus.$emit("loadMembers",response.data)

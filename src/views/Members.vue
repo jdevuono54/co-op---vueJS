@@ -1,6 +1,6 @@
 <template>
     <div class="Members container-fluid">
-        <members_list></members_list>
+        <members_list :membres="membres"></members_list>
         <profil_modal :member="selected_membre"></profil_modal>
     </div>
 </template>
@@ -20,6 +20,9 @@
         created() {
             this.$bus.$on('loadMembers',(members) => {
                 this.membres = members
+            })
+            this.$bus.$on('changeSelectedMembre',(membre) => {
+                this.selected_membre = membre
             })
         },
 
