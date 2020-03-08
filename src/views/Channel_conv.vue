@@ -1,7 +1,7 @@
 <template>
     <div class="Channel_conv container-fluid">
         <div class="conv">
-            <message_box></message_box>
+            <message_box :conversation="conversation"></message_box>
             <message_send></message_send>
         </div>
     </div>

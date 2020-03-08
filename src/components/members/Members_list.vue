@@ -1,13 +1,13 @@
 <template>
     <div class="member_list">
         <b-row>
-            <table class="table table-hover table-striped" v-if="this.$parent.membres">
+            <table class="table table-hover table-striped" v-if="membres">
                 <thead class="thead-light">
                 <tr>
                     <th scope="col">
                         <b-row>
                             <b-col sm="12" md="6" class="table_title">
-                                {{ this.$parent.membres.length }} membres
+                                {{ membres.length }} membres
                             </b-col>
                         </b-row>
                     </th>
