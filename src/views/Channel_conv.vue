@@ -22,9 +22,12 @@
             this.$bus.$on('deleteMessage',(message) => {
                 this.removeMessage(message)
             })
-            this.$bus.$on('loadMessage',(message) => {
-                this.conversation = message;
+            this.$bus.$on('loadMessage',(conversation) => {
+                this.conversation = conversation;
                 this.conversation.reverse("created_at")
+            })
+            this.$bus.$on('addMessage',(message) => {
+                this.conversation.push(message)
             })
         },
         methods: {

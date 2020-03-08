@@ -4,7 +4,7 @@
             <input type="text" v-model="message" class="form-control" autofocus v-on:keyup.enter="ajouterMessage">
         </div>
         <div class="col-sm-12 col-md-2">
-            <button type="button" @click="ajouterMessage" class="btn btn-primary btn-block">Envoyer</button>
+            <button type="button" @click="ajouterMessage" class="btn btn-primary btn-block" :disabled="!message">Envoyer</button>
         </div>
     </div>
 </template>
@@ -22,7 +22,7 @@
                 this.$http.post('channels/' + this.$route.params.id + '/posts', {
                     message: this.message,
                 }).then((response) => {
-                    this.$parent.$data.conversation.push(response.data)
+                    this.$bus.$emit("addMessage",response.data)
                     this.message = null;
                 }).catch((e) => {
                     this.$root.makeToast(e.response.data.message)
