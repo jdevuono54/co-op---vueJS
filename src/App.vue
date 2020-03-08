@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
- <!-- NAVBAR -->
+        <navbar></navbar>
     </div>
     <router-view/>
   </div>
@@ -10,9 +10,10 @@
 <style lang="scss">
     @import "../node_modules/bootstrap/scss/bootstrap.scss";
     @import "../node_modules/bootstrap-vue/dist/bootstrap-vue.min.css";
+    @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
     body{
-        font-family: "Comic Sans MS",serif;
+        font-family: "Raleway",serif;
     }
 
     .alert{
@@ -46,3 +47,9 @@
         }
     }
 </style>
+<script>
+    import Navbar from "./components/navbar";
+    export default {
+        components: {Navbar}
+    }
+</script>

@@ -20,6 +20,9 @@ export default new Vuex.Store({
     },
     saveUserLocalStorage(state,user){
       state.user = user;
+    },
+    decoUser(state){
+      state.user = null;
     }
   },
   actions: {
