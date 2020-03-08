@@ -40,9 +40,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(message,id) in this.sortedUserMessages.slice(0,9)" v-bind:key="id">
+                    <tr v-for="(message,id) in this.sortedUserMessages.slice(0,9)" v-bind:key="id" @click="changConv(message.channel_id)">
 
-                        <td @click="changConv(message.channel_id)">{{ message.channel }}</td>
+                        <td>{{ message.channel }}</td>
                         <td>{{ message.message }}</td>
                         <td>{{ message.created_at }}</td>
                     </tr>
@@ -122,6 +122,9 @@
 </script>
 
 <style scoped>
+    tbody > tr{
+        cursor: pointer;
+    }
     img{
         border-radius: 50%;
     }
