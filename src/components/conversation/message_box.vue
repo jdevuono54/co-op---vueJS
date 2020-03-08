@@ -27,6 +27,11 @@
         mounted() {
             this.loadMembres()
         },
+        created() {
+            this.$bus.$on('deleteMember',(membre) => {
+                this.membres.splice(this.membres.indexOf(membre),1)
+            })
+        },
         methods: {
             userSelected(id_selected){
                 this.membres.forEach((membre) => {

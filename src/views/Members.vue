@@ -24,6 +24,9 @@
             this.$bus.$on('changeSelectedMembre',(membre) => {
                 this.selected_membre = membre
             })
+            this.$bus.$on('deleteMember',(membre) => {
+                this.membres.splice(this.membres.indexOf(membre),1)
+            })
         },
 
     }

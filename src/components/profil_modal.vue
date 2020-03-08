@@ -91,7 +91,7 @@
                 this.$bvModal.hide('modal-profil')
 
                 this.$http.delete('members/'+this.$props.member.id).then(() => {
-                    this.$parent.membres.splice(this.$parent.membres.indexOf(this.$props.member),1)
+                    this.$bus.$emit("deleteMember",this.$props.member);
                 }).catch((e) => {
                     this.$root.makeToast(e.response.data.message)
                 })
