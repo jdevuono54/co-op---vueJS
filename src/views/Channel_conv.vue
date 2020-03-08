@@ -25,12 +25,18 @@
             this.$bus.$on('addMessage',(message) => {
                 this.conversation.push(message)
             })
+            this.$bus.$on('editMessage',(message) => {
+                this.editMessage(message)
+            })
         },
         mounted: function() {
             this.loadMessage()
             setInterval(this.loadMessage,3000)
         },
         methods: {
+            editMessage(message){
+                this.conversation[this.conversation.indexOf(message)] = message
+            },
             removeMessage(message){
                 this.$http.delete('channels/' + message.channel_id + "/posts/" +message.id).then(() => {
                     this.conversation.splice(this.conversation.indexOf(message),1)
