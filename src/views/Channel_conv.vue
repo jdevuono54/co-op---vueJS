@@ -31,7 +31,6 @@
         },
         mounted: function() {
             this.loadMessage()
-            setInterval(this.loadMessage,3000)
         },
         methods: {
             editMessage(message){
