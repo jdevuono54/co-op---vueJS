@@ -17,6 +17,12 @@
                 selected_membre:null
             }
         },
+        created() {
+            this.$bus.$on('loadMembers',(members) => {
+                this.membres = members
+            })
+        },
+
     }
 </script>
 

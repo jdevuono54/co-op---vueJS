@@ -30,8 +30,8 @@
     export default {
         name: "Members_list",
         mounted() {
-            this.$http.get('members').then((e) => {
-                this.$parent.membres = e.data
+            this.$http.get('members').then((response) => {
+                this.$bus.$emit("loadMembers",response.data)
             }).catch((e) => {
                 this.$root.makeToast(e.response.data.message)
             })
