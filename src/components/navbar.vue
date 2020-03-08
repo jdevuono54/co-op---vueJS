@@ -20,7 +20,7 @@
         methods:{
             deco(){
                 this.$store.commit("decoUser");
-                this.$router.push("/")
+                this.$router.push("/login")
             }
         }
     }
