@@ -23,7 +23,7 @@
                         <router-link :to="{ name: 'channel_conv', params : { id: conversation.id} }">
                             <td scope="row">
 
-                                {{ conversation.label }}
+                                {{ conversation.label }} : {{ conversation.topic }}
 
                                 <span v-if="hover === conversation.id">
                                     <font-awesome-icon @click.prevent="deleteConv(conversation)" class="icon alt iconDelete" icon="trash"/>
