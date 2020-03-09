@@ -19,6 +19,9 @@
                 edit: null
             }
         },
+        beforeDestroy() {
+            this.$bus.$off();
+        },
         created() {
             this.$bus.$on('editMessage',(message) => {
                 if(message){

@@ -27,6 +27,9 @@
         mounted() {
             this.loadMembres()
         },
+        beforeDestroy() {
+            this.$bus.$off();
+        },
         created() {
             this.$bus.$on('deleteMember',(membre) => {
                 this.membres.splice(this.membres.indexOf(membre),1)

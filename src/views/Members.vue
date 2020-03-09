@@ -17,6 +17,9 @@
                 selected_membre:null
             }
         },
+        beforeDestroy() {
+            this.$bus.$off();
+        },
         created() {
             this.$bus.$on('loadMembers',(members) => {
                 this.membres = members

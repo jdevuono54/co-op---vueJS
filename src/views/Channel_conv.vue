@@ -18,6 +18,9 @@
                 conversation: null
             }
         },
+        beforeDestroy() {
+            this.$bus.$off();
+        },
         created() {
             this.$bus.$on('deleteMessage',(message) => {
                 this.removeMessage(message)

@@ -19,6 +19,9 @@
         mounted() {
             this.getConversations()
         },
+        beforeDestroy() {
+            this.$bus.$off();
+        },
         created() {
             this.$bus.$on('deleteConv',(conversation) => {
                 this.removeConv(conversation)
