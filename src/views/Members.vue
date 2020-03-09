@@ -20,7 +20,7 @@
         beforeDestroy() {
             this.$bus.$off();
         },
-        created() {
+        mounted() {
             this.$bus.$on('loadMembers',(members) => {
                 this.membres = members
             })

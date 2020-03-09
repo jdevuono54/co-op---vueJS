@@ -22,7 +22,7 @@
         beforeDestroy() {
             this.$bus.$off();
         },
-        created() {
+        mounted() {
             this.$bus.$on('editMessage',(message) => {
                 if(message){
                     this.message = message.message

@@ -21,7 +21,8 @@
         beforeDestroy() {
             this.$bus.$off();
         },
-        created() {
+        mounted: function() {
+            this.loadMessage()
             this.$bus.$on('deleteMessage',(message) => {
                 this.removeMessage(message)
             })
@@ -31,9 +32,6 @@
             this.$bus.$on('editMessage',() => {
                 this.loadMessage()
             })
-        },
-        mounted: function() {
-            this.loadMessage()
         },
         methods: {
             removeMessage(message){

@@ -26,14 +26,12 @@
         },
         mounted() {
             this.loadMembres()
-        },
-        beforeDestroy() {
-            this.$bus.$off();
-        },
-        created() {
             this.$bus.$on('deleteMember',(membre) => {
                 this.membres.splice(this.membres.indexOf(membre),1)
             })
+        },
+        beforeDestroy() {
+            this.$bus.$off();
         },
         methods: {
             userSelected(id_selected){

@@ -18,11 +18,6 @@
         },
         mounted() {
             this.getConversations()
-        },
-        beforeDestroy() {
-            this.$bus.$off();
-        },
-        created() {
             this.$bus.$on('deleteConv',(conversation) => {
                 this.removeConv(conversation)
             })
@@ -40,6 +35,9 @@
             this.$bus.$on('editConv',(id,titre,description) => {
                 this.modifierConv(id,titre,description)
             })
+        },
+        beforeDestroy() {
+            this.$bus.$off("deleteConv");
         },
         methods:{
             getConversations(){
