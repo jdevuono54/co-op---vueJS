@@ -21,8 +21,10 @@
         },
         created() {
             this.$bus.$on('editMessage',(message) => {
-                this.message = message.message
-                this.edit = message
+                if(message){
+                    this.message = message.message
+                    this.edit = message
+                }
             })
         },
         methods: {
@@ -51,8 +53,8 @@
             editMessage(){
                 this.$http.put('channels/' + this.$route.params.id + '/posts/'+this.edit.id, {
                     message: this.message,
-                }).then((response) => {
-                    this.$bus.$emit("editMessage",response.data)
+                }).then(() => {
+                    this.$bus.$emit("editMessage")
                     this.annulerEdit()
                 }).catch((e) => {
                     this.$root.makeToast(e.response.data.message)
